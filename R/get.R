@@ -9,7 +9,7 @@
 #' @param xmart_server Either 'UAT' (the default) or 'PROD'
 #' @param top Number of rows of a table to return
 #' @param query A single string fitting the [Odata protocol](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/) that must start with \code{"$filter="}.
-#' @param token Access token for xMart4 server. If NULL (the default), the package automatically creates and manages access for the user.
+#' @param token Access token for xMart4 server. If NULL (the default), the package automatically creates and manages access for the user if Azure client ID and secret set up properly. See `vignette("token_setup")` for instructions and details.
 #'
 #' @return List of parsed JSON returned from the API.
 xmart4_api <- function(mart,

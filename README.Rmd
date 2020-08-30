@@ -1,0 +1,55 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# xmart4
+
+<!-- badges: start -->
+[![Travis build status](https://travis-ci.com/caldwellst/xmart4.svg?branch=master)](https://travis-ci.com/caldwellst/xmart4)
+<!-- badges: end -->
+
+The goal of xmart4 is to provide easy access to the World Health Organization's
+xMart4 API by managing client access tokens for the user and providing simple
+functions to view mart and table contents.
+
+## Installation
+
+You can install xmart4 from [GitHub](https://github.com/) with:
+
+```  r
+remotes::install_github("caldwellst/xmart4", build_vignettes = TRUE)
+```
+
+## Initial setup
+
+```{r child='vignettes/token_setup.rmd'}
+```
+
+## Getting data
+
+Once you have sorted out the client tokens, you can start using the simple functions
+available in the package to access xMart4 marts and tables.
+
+* `xmart4_mart()` provides a character vector of all available tables and views in a specified mart.
+* `xmart4_table()` retrieves data from a specified mart or table.
+
+Using both should just require you to specify mart name, server (UAT or PROD),
+and table name (if applicable).
+
+## Contributions
+
+Additional feature requests should be made through the
+[GitHub issues page](https://github.com/caldwellst/xmart4/issues). Any contributions
+appreciated and encouraged, but please create an open issue first for discussion
+before proceeding with a pull request.

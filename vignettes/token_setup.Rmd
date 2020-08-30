@@ -79,5 +79,5 @@ xmart4_table(..., token = token_uat_2)
 You can check the time left on your token using `xmart_token_time(token_uat_2)`
 (they come with 60 minutes of validity once generated).
 Hopefully you don't need to manually manage your tokens, but these wrappers
-should still make the process as painless as possible as `xmart4` streamlines the
+should still make the process as painless as possible as xmart4 streamlines the
 POST requests and expiry checks.

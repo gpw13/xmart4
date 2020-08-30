@@ -24,7 +24,7 @@ xmart4_api(
 
 \item{query}{A single string fitting the \href{https://www.odata.org/documentation/odata-version-2-0/uri-conventions/}{Odata protocol} that must start with \code{"$filter="}.}
 
-\item{token}{Access token for xMart4 server. If NULL (the default), the package automatically creates and manages access for the user.}
+\item{token}{Access token for xMart4 server. If NULL (the default), the package automatically creates and manages access for the user if Azure client ID and secret set up properly. See \code{vignette("token_setup")} for instructions and details.}
 }
 \value{
 List of parsed JSON returned from the API.

@@ -26,3 +26,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+URL: https://github.com/caldwellst/xmart4
+BugReports: https://github.com/caldwellst/xmart4/issues

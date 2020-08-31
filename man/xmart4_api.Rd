@@ -27,7 +27,7 @@ xmart4_api(
 \item{token}{Access token for xMart4 server. If NULL (the default), the package automatically creates and manages access for the user if Azure client ID and secret set up properly. See \code{vignette("token_setup")} for instructions and details.}
 }
 \value{
-List of parsed JSON returned from the API.
+A data frame.
 }
 \description{
 Function that provides access to the xMart4 API. Currently functionality is

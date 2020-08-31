@@ -11,7 +11,7 @@
 #' @param query A single string fitting the [Odata protocol](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/) that must start with \code{"$filter="}.
 #' @param token Access token for xMart4 server. If NULL (the default), the package automatically creates and manages access for the user if Azure client ID and secret set up properly. See `vignette("token_setup")` for instructions and details.
 #'
-#' @return List of parsed JSON returned from the API.
+#' @return A data frame.
 xmart4_api <- function(mart,
                        table = NULL,
                        xmart_server = c("UAT", "PROD"),
@@ -42,7 +42,7 @@ xmart4_api <- function(mart,
                           as = "parsed",
                           type = "application/json")
   assert_content(parsed)
-  parsed
+  parsed_to_df(parsed)
 }
 
 #' @noRd
@@ -81,9 +81,4 @@ join_top_query <- function(top, query) {
   x <- c(query, top)
   x <- x[!is.null(x)]
   paste(x, collapse = "&")
-}
-
-#' @noRd
-null_to_na <- function(l) {
-  sapply(l, function(x) ifelse(is.null(x), NA, x))
 }

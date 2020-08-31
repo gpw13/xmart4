@@ -10,10 +10,9 @@
 xmart4_mart <- function(mart,
                         xmart_server = c("UAT", "PROD"),
                         token = NULL) {
-  parsed <- xmart4_api(mart = mart,
+  df <- xmart4_api(mart = mart,
                        xmart_server = xmart_server,
                        token = token)
-  df <- parsed_to_df(parsed)
   df[['url']]
 }
 
@@ -37,13 +36,12 @@ xmart4_table <- function(mart,
                          return_cols = c("data", "all", "sysdata"),
                          token = NULL) {
   return_cols <- rlang::arg_match(return_cols)
-  parsed <- xmart4_api(mart = mart,
+  df <- xmart4_api(mart = mart,
                        table = table,
                        top = top,
                        query = query,
                        xmart_server = xmart_server,
                        token = token)
-  df <- parsed_to_df(parsed)
   process_table(df, return_cols)
 }
 
@@ -66,8 +64,10 @@ process_table <- function(df, return_cols) {
 
 #' @noRd
 parsed_to_df <- function(parsed) {
-  parsed <- lapply(parsed[["value"]], null_to_na)
-  purrr::reduce(parsed, dplyr::bind_rows)
+  purrr::map_df(parsed[["value"]], null_to_na)
 }
 
-
+#' @noRd
+null_to_na <- function(l) {
+  sapply(l, function(x) ifelse(is.null(x), NA, x))
+}

@@ -9,6 +9,7 @@ xmart4_table(
   table,
   top = NULL,
   query = NULL,
+  col_types = NULL,
   xmart_server = c("UAT", "PROD"),
   return_cols = c("data", "all", "sysdata"),
   token = NULL
@@ -22,6 +23,8 @@ xmart4_table(
 \item{top}{Number of rows of a table to return}
 
 \item{query}{A single string fitting the \href{https://www.odata.org/documentation/odata-version-2-0/uri-conventions/}{Odata protocol} that must start with \code{"$filter="}.}
+
+\item{col_types}{One of NULL, a \code{\link[readr:cols]{readr::cols()}} specification, or a string. This is passed to \code{\link[readr:type_convert]{readr::type_convert()}}, so see documentation there for more details.}
 
 \item{xmart_server}{Either 'UAT' (the default) or 'PROD'}
 

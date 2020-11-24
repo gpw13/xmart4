@@ -23,6 +23,7 @@ xmart4_mart <- function(mart,
 #' return only data columns (the default), all columns, or only the system columns.
 #'
 #' @inheritParams xmart4_api
+#' @param col_types One of NULL, a [readr::cols()] specification, or a string. This is passed to [readr::type_convert()], so see documentation there for more details.
 #' @param return_cols Return data columns only (default), all columns, or system data columns. Only works on tables, as views have no system columns.
 #'
 #' @return A tibble.
@@ -32,6 +33,7 @@ xmart4_table <- function(mart,
                          table,
                          top = NULL,
                          query = NULL,
+                         col_types = NULL,
                          xmart_server = c("UAT", "PROD"),
                          return_cols = c("data", "all", "sysdata"),
                          token = NULL) {
@@ -42,7 +44,8 @@ xmart4_table <- function(mart,
                        query = query,
                        xmart_server = xmart_server,
                        token = token)
-  process_table(df, return_cols)
+  df <- process_table(df, return_cols)
+  readr::type_convert(df, col_types = col_types)
 }
 
 #' @noRd

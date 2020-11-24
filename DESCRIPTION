@@ -21,7 +21,8 @@ Imports:
     rlang,
     dplyr,
     memoise,
-    purrr
+    purrr,
+    readr
 Suggests: 
     knitr,
     rmarkdown

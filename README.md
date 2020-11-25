@@ -7,6 +7,8 @@
 
 [![Travis build
 status](https://travis-ci.com/caldwellst/xmart4.svg?branch=master)](https://travis-ci.com/caldwellst/xmart4)
+[![R build
+status](https://github.com/caldwellst/xmart4/workflows/R-CMD-check/badge.svg)](https://github.com/caldwellst/xmart4/actions)
 <!-- badges: end -->
 
 The goal of xmart4 is to provide easy access to the World Health

@@ -32,7 +32,12 @@ You can install xmart4 from [GitHub](https://github.com/) with:
 remotes::install_github("caldwellst/xmart4", build_vignettes = TRUE)
 ```
 
-## Initial setup
+To get setup with the xmart4 package, you will need to find the instructions below to connect your client machine to the xMart4 database and be able to use the OData v4 API.
+
+```{r child='vignettes/xmart4-azure-setup.rmd'}
+```
+
+## Token setup
 
 ```{r child='vignettes/token_setup.rmd'}
 ```

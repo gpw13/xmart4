@@ -21,7 +21,89 @@ You can install xmart4 from [GitHub](https://github.com/) with:
 
     remotes::install_github("caldwellst/xmart4", build_vignettes = TRUE)
 
-## Initial setup
+To get setup with the xmart4 package, you will need to find the
+instructions below to connect your client machine to the xMart4 database
+and be able to use the OData v4 API.
+
+If a remote client application needs to securely access an xMart4
+database, specific permissions must be set up in the WHO AzureAD. The
+below tutorial takes you through the steps to establish this connection.
+
+## Remote client app configuration
+
+<div class="figure">
+
+<img src="/Users/caldwellst/Documents/repos/packages/xmart4/vignettes/xmart4-azure-setup_insertimage_2.png" alt="Create or retrieve AzureAD app clientID." width="70%" />
+<p class="caption">
+Create or retrieve AzureAD app clientID.
+</p>
+
+</div>
+
+In the [AzureAD
+portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps)
+get the Application (client ID) of the application that needs access to
+the xMart API. If the application does not exist, create it or request
+it to Chris Tantillo. Let’s call this clientID `remoteClientID` for
+future references.
+
+<div class="figure">
+
+<img src="/Users/caldwellst/Documents/repos/packages/xmart4/vignettes/xmart4-azure-setup_insertimage_3.png" alt="Generate a client secret." width="50%" />
+<p class="caption">
+Generate a client secret.
+</p>
+
+</div>
+
+In the same AzureAD page, click Certificates & Secrets &gt; New client
+secret. We’ll refer to this secret by `remoteClientSecret`.
+
+## xMart API app configuration
+
+This step should be done by the xMart API owner (one of Chris Tantillo,
+Chris Faulkner, or Thyiag) in Azure in order to allow your application
+to consume xMart API data.
+
+<div class="figure">
+
+<img src="/Users/caldwellst/Documents/repos/packages/xmart4/vignettes/xmart4-azure-setup_insertimage_4.png" alt="Expose an API in xMart &gt; Add a Client application" width="50%" />
+<p class="caption">
+Expose an API in xMart &gt; Add a Client application
+</p>
+
+</div>
+
+In WHO AzureAD Portal, find xMart API (Env) in App Registrations. Get
+the clientID, we’ll call it `xmartapiClientID`. It will need to provided
+to the remote app developer.
+
+-   Value for UAT,
+    `xmartapiClientID: b85362d6-c259-490b-bd51-c0a730011bef`
+-   Value for PROD,
+    `xmartapiClientID: 712b0d0d-f9c5-4b7a-80d6-8a83ee014bca`
+
+Open the app and select **Expose an API**, click **Add a client
+application** and paste the `remoteClientID`.
+
+<div class="figure">
+
+<img src="/Users/caldwellst/Documents/repos/packages/xmart4/vignettes/xmart4-azure-setup_insertimage_5.png" alt="Configure xMart role &gt; Add Client Application" width="50%" />
+<p class="caption">
+Configure xMart role &gt; Add Client Application
+</p>
+
+</div>
+
+In xMart Admin UI of your mart, create or use an existing role that has
+DATA\_VIEW permission for the mart or view(s) that need to be consumed
+by the remote app. Then, in Users, click the Add a Client
+application button. Fill in the remoteClientID received from previous
+step and wisely chosen friendly name. From here, you will be shown how
+to use the `remoteClientID` and `remoteClientSecret` in the xmart4 R
+package.
+
+## Token setup
 
 Most of the work in getting access to the xMart4 API has to be done
 outside of R. This primarily consists of setting up a client application
@@ -38,9 +120,6 @@ only editing your `.Renviron` file once. Add your `remoteClientID` and
 `remoteClientSecret` from WHO AzureAD to that by running
 `usethis::edit_r_environ()` and adding these two lines (replacing hashes
 with actual client ID and secret values):
-
-    XMART_REMOTE_CLIENT_ID = "############"
-    XMART_REMOTE_CLIENT_SECRET = "############"
 
 Save the file and restart your R session. You will now be able to access
 all xMart4 marts your client app has been granted permission to access
@@ -68,9 +147,6 @@ Once setup, in every session, you can just directly start requesting
 access to marts and tables with `xmart4` functions, without having to
 specify the token
 
-    xmart4_mart(..., token = NULL) # don't actually need to specify token = NULL, it's the default
-    xmart4_table(..., token = NULL)
-
 ## Directly managing token access
 
 The only instance where you might want to personally manage token access
@@ -82,13 +158,6 @@ specifying the token.
 For additional clients not setup this way, you can just directly request
 your tokens. For instance, to set up and use a new access token for the
 UAT server:
-
-    token_uat_2 <- xmart4_token(client_id = "#######",
-                                client_secret = "#######",
-                                xmart_server = "UAT")
-
-    xmart4_mart(..., token = token_uat_2)
-    xmart4_table(..., token = token_uat_2)
 
 You can check the time left on your token using
 `xmart_token_time(token_uat_2)` (they come with 60 minutes of validity
@@ -110,16 +179,12 @@ Using both should just require you to specify mart name, server (UAT or
 PROD), and table name (if applicable). It’s as easy as opening an R
 session and going:
 
-    library(xmart4)
-
-    head(xmart4_mart("GPW13"))
     #> [1] "CONVERT"                   "CONVERT_T"                
     #> [3] "FACT_BILLION_HE_EVENT"     "FACT_BILLION_HE_INDICATOR"
     #> [5] "FACT_BILLION_HP_COUNTRY"   "FACT_BILLION_HP_INDICATOR"
 
 Let’s access the CONVERT table.
 
-    xmart4_table(mart = "GPW13", table = "CONVERT", xmart_server = "UAT")
     #> 
     #> ── Column specification ────────────────────────────────────────────────────────
     #> cols(
@@ -148,11 +213,6 @@ tables or views have many rows and requests may take a long time, so you
 can explore the table on a small subset and find useful OData queries to
 reduce the size of the data requested.
 
-    xmart4_table(mart = "GPW13",
-                 table = "CONVERT",
-                 top = 2,
-                 query = "$filter=Input eq 'A'",
-                 xmart_server = "PROD")
     #> 
     #> ── Column specification ────────────────────────────────────────────────────────
     #> cols(

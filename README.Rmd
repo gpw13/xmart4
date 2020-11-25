@@ -82,7 +82,7 @@ running an identical request will use the cached data rather than re-request the
 data from the xMart4 API. This provides large advantages when working with big
 tables and views, as the API requests grow quite time consuming as the number of
 rows grows. Load the xmart4 package explicitly through `library(xmart4)`, rather
-than simply calling functions via `xmart4::fun()`.
+than simply callin functions via `xmart4::fun()`.
 
 This could be problematic if using the xmart4 package to test or consume
 data from marts that are being updated throughout an R session. If you need to

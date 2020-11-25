@@ -1,8 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-xmart4
-======
+# xmart4
 
 <!-- badges: start -->
 
@@ -14,15 +13,13 @@ The goal of xmart4 is to provide easy access to the World Health
 Organization’s xMart4 API by managing client access tokens for the user
 and providing simple functions to view mart and table contents.
 
-Installation
-------------
+## Installation
 
 You can install xmart4 from [GitHub](https://github.com/) with:
 
     remotes::install_github("caldwellst/xmart4", build_vignettes = TRUE)
 
-Initial setup
--------------
+## Initial setup
 
 Most of the work in getting access to the xMart4 API has to be done
 outside of R. This primarily consists of setting up a client application
@@ -49,8 +46,7 @@ by mart admins. Unless your client changes, you should not have to run
 this setup ever again and tokens will be managed in the background for
 you by the `xmart4` package.
 
-Underlying functionality
-------------------------
+## Underlying functionality
 
 So how does this work in practice? The first time you call the
 `xmart4_api()` in a session (either directly or by using any function to
@@ -73,8 +69,7 @@ specify the token
     xmart4_mart(..., token = NULL) # don't actually need to specify token = NULL, it's the default
     xmart4_table(..., token = NULL)
 
-Directly managing token access
-------------------------------
+## Directly managing token access
 
 The only instance where you might want to personally manage token access
 would be if you’re attempting to access the xMart4 API through multiple
@@ -99,8 +94,7 @@ once generated). Hopefully you don’t need to manually manage your
 tokens, but these wrappers should still make the process as painless as
 possible as xmart4 streamlines the POST requests and expiry checks.
 
-Getting data
-------------
+## Getting data
 
 Once you have sorted out the client tokens, you can start using the
 simple functions available in the package to access xMart4 marts and
@@ -124,21 +118,27 @@ session and going:
 Let’s access the CONVERT table.
 
     xmart4_table(mart = "GPW13", table = "CONVERT", xmart_server = "UAT")
+    #> 
+    #> ── Column specification ────────────────────────────────────────────────────────
+    #> cols(
+    #>   INPUT = col_character(),
+    #>   OUTPUT = col_double()
+    #> )
     #> # A tibble: 12 x 2
-    #>    Input Output     
-    #>    <chr> <chr>      
-    #>  1 A     39.02      
-    #>  2 C     0.06894321 
-    #>  3 D     19.1223322 
-    #>  4 B     0.5679     
-    #>  5 D     91         
-    #>  6 E     12.89      
-    #>  7 D     23.42      
-    #>  8 B     0.0123459  
-    #>  9 B     0.1946     
-    #> 10 E     88.78      
-    #> 11 A     28.56      
-    #> 12 C     0.666666666
+    #>    INPUT  OUTPUT
+    #>    <chr>   <dbl>
+    #>  1 A     39.0   
+    #>  2 C      0.0689
+    #>  3 D     19.1   
+    #>  4 B      0.568 
+    #>  5 D     91     
+    #>  6 E     12.9   
+    #>  7 D     23.4   
+    #>  8 B      0.0123
+    #>  9 B      0.195 
+    #> 10 E     88.8   
+    #> 11 A     28.6   
+    #> 12 C      0.667
 
 And I can request the top n rows of a table and even supply OData
 filters with my request. This is especially useful in instances where
@@ -151,17 +151,22 @@ reduce the size of the data requested.
                  top = 2,
                  query = "$filter=Input eq 'A'",
                  xmart_server = "PROD")
+    #> 
+    #> ── Column specification ────────────────────────────────────────────────────────
+    #> cols(
+    #>   Input = col_character(),
+    #>   Output = col_double()
+    #> )
     #> # A tibble: 2 x 2
     #>   Input Output
-    #>   <chr> <chr> 
-    #> 1 A     28.56 
-    #> 2 A     39.02
+    #>   <chr>  <dbl>
+    #> 1 A       28.6
+    #> 2 A       39.0
 
 Note above, I seamlessly moved between consuming data from PROD and UAT
 servers.
 
-Memoisation
------------
+## Memoisation
 
 `xmart4_api()`, the function underlying requests to the xMart4 API, has
 cached functionality based on `memoise::memeoise()` so that calls to the
@@ -171,7 +176,7 @@ or table/view, running an identical request will use the cached data
 rather than re-request the data from the xMart4 API. This provides large
 advantages when working with big tables and views, as the API requests
 grow quite time consuming as the number of rows grows. Load the xmart4
-package explicitly through `library(xmart4)`, rather than simply calling
+package explicitly through `library(xmart4)`, rather than simply callin
 functions via `xmart4::fun()`.
 
 This could be problematic if using the xmart4 package to test or consume
@@ -182,8 +187,7 @@ each time, then you will need to run
 repeating a call. See the documentation of the [memoise
 package](https://github.com/r-lib/memoise) for more details.
 
-Contributions
--------------
+## Contributions
 
 Additional feature requests should be made through the [GitHub issues
 page](https://github.com/caldwellst/xmart4/issues). Any contributions

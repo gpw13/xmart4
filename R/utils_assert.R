@@ -1,32 +1,4 @@
 #' @noRd
-assert_client_id <- function(x) {
-  if (is.null(x)) {
-    x <- Sys.getenv("XMART_REMOTE_CLIENT_ID")
-    if(identical(x, "")) {
-      stop("Please set env var XMART_REMOTE_CLIENT_ID to your remoteClientID or manually provide `client_id`.",
-           call. = FALSE)
-    }
-    x
-  } else {
-    x
-  }
-}
-
-#' @noRd
-assert_client_secret <- function(x) {
-  if (is.null(x)) {
-    x <- Sys.getenv("XMART_REMOTE_CLIENT_SECRET")
-    if(identical(x, "")) {
-      stop("Please set env var XMART_REMOTE_CLIENT_SECRET to your remoteClientSecret or manually provide `client_secret`.",
-           call. = FALSE)
-    }
-    x
-  } else {
-    x
-  }
-}
-
-#' @noRd
 assert_query <- function(qry) {
   if (!is.null(qry) && !is.na(qry)) {
     if (length(qry) > 1 || !is.character(qry)) {

@@ -1,6 +1,8 @@
-#' @inherit xmart4_token title params
-xmart4_token_wims <- function(xmart_id) {
-  pw <- get_wims_password(xmart_id)
+#' @inherit xmart4_token title
+#' @param xmart_id Resource and app ID for authentication.
+xmart4_token_wims <- function(xmart_id,
+                              xmart_server) {
+  pw <- get_wims_password(xmart_server)
   resp <- AzureAuth::get_azure_token(resource = xmart_id,
                                      tenant = "f610c0b7-bd24-4b39-810b-3dc280afb590",
                                      app = xmart_id,
@@ -13,15 +15,15 @@ xmart4_token_wims <- function(xmart_id) {
 }
 
 #' @noRd
-get_wims_password <- function(xmart_id) {
-  if (xmart_id == "712b0d0d-f9c5-4b7a-80d6-8a83ee014bca") {
-    "qQKa]APZ_0q.OwO.Oq1H3ndnFNsa16u7"
-  } else if (xmart_id == "b85362d6-c259-490b-bd51-c0a730011bef") {
-    "utNZAZb8823NaRexQl[VPU=gK[YD/H1E"
-  } else {
-    stop("Invalid `xmart_id` supplied to `get_wims_password()`.",
+get_wims_password <- function(xmart_server) {
+  nm <- paste0("XMART_", xmart_server, "_PASSWORD")
+  x <- Sys.getenv(nm)
+  if (identical(x, "")) {
+    stop(sprintf("Please set env var %s in your .Renviron file. See `vignette('azure-wims-setup', package = 'xmart4')` for more details.",
+                 nm),
          call. = FALSE)
   }
+  x
 }
 
 #' Create Azure cache directory
@@ -32,6 +34,8 @@ get_wims_password <- function(xmart_id) {
 #' package when called using `library(AzureAuth)`.
 #'
 #' @return Nothing, but creates directory if it does not already exist.
+#'
+#' @export
 make_azure_rdir <- function() {
   dir <- AzureAuth::AzureR_dir()
   if (dir.exists(dir)) {

@@ -12,6 +12,7 @@ xmart4_table(
   col_types = NULL,
   xmart_server = c("UAT", "PROD"),
   return_cols = c("data", "all", "sysdata"),
+  auth_type = c("wims", "client"),
   token = NULL
 )
 }
@@ -29,6 +30,11 @@ xmart4_table(
 \item{xmart_server}{Either 'UAT' (the default) or 'PROD'}
 
 \item{return_cols}{Return data columns only (default), all columns, or system data columns. Only works on tables, as views have no system columns.}
+
+\item{auth_type}{Type of authorization to use for the token authorization. For
+"wims", the default, this uses the WHO WIMS system to authenticate, with
+the AzureAuth package on the backend. If "client", it uses an AzureAD client
+setup.}
 
 \item{token}{Access token for xMart4 server. If NULL (the default), the package automatically creates and manages access for the user if Azure client ID and secret set up properly. See \code{vignette("token_setup")} for instructions and details.}
 }

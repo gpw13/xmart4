@@ -10,6 +10,7 @@ xmart4_api(
   xmart_server = c("UAT", "PROD"),
   top = NULL,
   query = NULL,
+  auth_type = c("wims", "client"),
   token = NULL
 )
 }
@@ -23,6 +24,11 @@ xmart4_api(
 \item{top}{Number of rows of a table to return}
 
 \item{query}{A single string fitting the \href{https://www.odata.org/documentation/odata-version-2-0/uri-conventions/}{Odata protocol} that must start with \code{"$filter="}.}
+
+\item{auth_type}{Type of authorization to use for the token authorization. For
+"wims", the default, this uses the WHO WIMS system to authenticate, with
+the AzureAuth package on the backend. If "client", it uses an AzureAD client
+setup.}
 
 \item{token}{Access token for xMart4 server. If NULL (the default), the package automatically creates and manages access for the user if Azure client ID and secret set up properly. See \code{vignette("token_setup")} for instructions and details.}
 }

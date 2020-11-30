@@ -7,6 +7,8 @@
 xmart4_token_client(xmart_id, client_id = NULL, client_secret = NULL)
 }
 \arguments{
+\item{xmart_id}{Resource and app ID for authentication.}
+
 \item{client_id}{Azure client ID. Only required if \code{auth_type == 'client'}.}
 
 \item{client_secret}{Azure client secret. Only required if \code{auth_type == 'client'}.}

@@ -6,6 +6,9 @@
 \usage{
 xmart4_token_wims(xmart_id)
 }
+\arguments{
+\item{xmart_id}{Resource and app ID for authentication.}
+}
 \description{
 Request xMart4 access token
 

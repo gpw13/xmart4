@@ -13,6 +13,7 @@ xmart4_mart <- function(mart,
                         token = NULL) {
   df <- xmart4_api(mart = mart,
                    xmart_server = xmart_server,
+                   auth_type = auth_type,
                    token = token)
   df[['url']]
 }
@@ -45,6 +46,7 @@ xmart4_table <- function(mart,
                    top = top,
                    query = query,
                    xmart_server = xmart_server,
+                   auth_type = auth_type,
                    token = token)
   df <- process_table(df, return_cols)
   readr::type_convert(df, col_types = col_types)

@@ -14,12 +14,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-Most of the work in getting access to the xMart4 API has to be done outside of R.
-This primarily consists of setting up a client application in WHO AzureAD and
-supplying that client's ID and secret to the xMart4 API. Once your client has
-access to the xMart4 API, mart permissions can be managed by the admin of
-each mart individually. Full details on this process can be found on the [xMart4
-Slack Wiki](https://xmartcollaboration.slack.com/files/TJF6QTLE4/F019WGZSSD7?origin_team=TJF6QTLE4).
+Most of the work in getting access to the xMart4 API using an authenticated Azure
+client has to be done outside of R. This primarily consists of setting up a 
+client application in WHO AzureAD and supplying that client's ID and secret to the xMart4 API. 
+Once your client has access to the xMart4 API, mart permissions can be managed by the admin of
+each mart individually. Full details on this process can be found in the Azure
+client setup vignette:
+
+* `vignette("azure-client-setup", package = "xmart4")`
 
 This package works to streamline the process on the R side by making access to
 xMart4 as simple as possible. If the client configuration is properly done, then

@@ -12,8 +12,10 @@ status](https://github.com/caldwellst/xmart4/workflows/R-CMD-check/badge.svg)](h
 <!-- badges: end -->
 
 The goal of xmart4 is to provide easy access to the World Health
-Organization’s xMart4 API by managing client access tokens for the user
-and providing simple functions to view mart and table contents.
+Organization’s xMart4 API by managing client access to the xMart. Once a
+machine is connected to the database, xmart4 provides a simple interface
+to interact with the OData API by pulling in tables and marts directly
+into R.
 
 ## Installation
 
@@ -21,135 +23,75 @@ You can install xmart4 from [GitHub](https://github.com/) with:
 
     remotes::install_github("caldwellst/xmart4", build_vignettes = TRUE)
 
-To get setup with the xmart4 package, you will need to find the
-instructions below to connect your client machine to the xMart4 database
-and be able to use the OData v4 API.
+## Connection types
 
-If a remote client application needs to securely access an xMart4
-database, specific permissions must be set up in the WHO AzureAD. The
-below tutorial takes you through the steps to establish this connection.
+To get setup with the xmart4 package, there are two ways to authenticate
+your machine with the Azure database. For most users, they will want to
+use their WIMS account to allow their personal machine to access xMart
+databases. The guide for this setup can be found below or in the
+relevant vignette:
 
-## Remote client app configuration
+-   `vignette("azure-wims-setup", package = "xmart4")`
 
-<figure>
-<img src="vignettes/xmart4-azure-setup_insertimage_2.png" style="width:80.0%" alt="Create or retrieve AzureAD app clientID." /><figcaption aria-hidden="true">Create or retrieve AzureAD app clientID.</figcaption>
-</figure>
+However, for some use cases, particularly dashboards, Shiny
+applications, or other non-interactive R pipelines, we isntead want to
+setup a separate Azure client to connect to the xMart4 database. The
+instructions for both of these are in the following vignettes:
 
-In the [AzureAD
-portal](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps)
-get the Application (client ID) of the application that needs access to
-the xMart API. If the application does not exist, create it or request
-it to Chris Tantillo. Let’s call this clientID `remoteClientID` for
-future references.
+-   `vignette("azure-client-setup", package = "xmart4")`
+-   `vignette("azure-token-setup", package = "xmart4")`
 
-<figure>
-<img src="vignettes/xmart4-azure-setup_insertimage_3.png" style="width:50.0%" alt="Generate a client secret." /><figcaption aria-hidden="true">Generate a client secret.</figcaption>
-</figure>
+## Azure WIMS Setup
 
-In the same AzureAD page, click Certificates & Secrets &gt; New client
-secret. We’ll refer to this secret by `remoteClientSecret`.
+Accessing the xMart4 databases using your WIMS authentication is a
+simple process. This packages builds on the
+[AzureAuth](https://github.com/Azure/AzureAuth) package, one developed
+and maintained by the Azure developers, to ease the access for the user.
 
-## xMart API app configuration
+### Azure cache directory
 
-This step should be done by the xMart API owner (one of Chris Tantillo,
-Chris Faulkner, or Thyiag) in Azure in order to allow your application
-to consume xMart API data.
+Once the xmart4 package is installed, the first thing the user can do is
+run `make_azure_rdir()`. This creates a file directory on your machine
+that will cache WIMS authentication and limit the need to login to WIMS
+in your browser every R session. This mimics the behavior on AzureAuth’s
+`onLoad()` function.
 
-<figure>
-<img src="vignettes/xmart4-azure-setup_insertimage_4.png" style="width:50.0%" alt="Expose an API in xMart &gt; Add a Client application" /><figcaption aria-hidden="true">Expose an API in xMart &gt; Add a Client application</figcaption>
-</figure>
+    library(xmart4)
+    make_azure_rdir()
+    #> AzureR_dir created at /Users/username/Library/Application Support/AzureR
 
-In WHO AzureAD Portal, find xMart API (Env) in App Registrations. Get
-the clientID, we’ll call it `xmartapiClientID`. It will need to provided
-to the remote app developer.
+### Azure password
 
--   Value for UAT,
-    `xmartapiClientID: b85362d6-c259-490b-bd51-c0a730011bef`
--   Value for PROD,
-    `xmartapiClientID: 712b0d0d-f9c5-4b7a-80d6-8a83ee014bca`
+From here, your WIMS account needs to ping the xMart4 Azure servers. To
+do this, we need to supply the passwords for the UAT and PROD servers
+separately. However, this is not exported with this package because
+these values are private. You can contact the maintainer of the package
+to get these values.
 
-Open the app and select **Expose an API**, click **Add a client
-application** and paste the `remoteClientID`.
+Once received, you need to add them to your `.Renviron` file, which can
+easily be edited using the usethis package with
+`usethis::edit_r_environ()`. Once the file is opened, just add two lines
+to the file and save like below (with the hashes replaced with the
+actual passwords):
 
-<figure>
-<img src="vignettes/xmart4-azure-setup_insertimage_5.png" style="width:50.0%" alt="Configure xMart role &gt; Add Client Application" /><figcaption aria-hidden="true">Configure xMart role &gt; Add Client Application</figcaption>
-</figure>
+    XMART_UAT_PASSWORD = "##########"
+    XMART_PROD_PASSWORD = "##########"
 
-In xMart Admin UI of your mart, create or use an existing role that has
-DATA\_VIEW permission for the mart or view(s) that need to be consumed
-by the remote app. Then, in Users, click the Add a Client
-application button. Fill in the remoteClientID received from previous
-step and wisely chosen friendly name. From here, you will be shown how
-to use the `remoteClientID` and `remoteClientSecret` in the xmart4 R
-package.
+Once saved, restart your R session. You can test that this has
+successfully worked by running:
 
-## Token setup
+    xmart4_token(auth_type = "wims")
 
-Most of the work in getting access to the xMart4 API has to be done
-outside of R. This primarily consists of setting up a client application
-in WHO AzureAD and supplying that client’s ID and secret to the xMart4
-API. Once your client has access to the xMart4 API, mart permissions can
-be managed by the admin of each mart individually. Full details on this
-process can be found on the [xMart4 Slack
-Wiki](https://xmartcollaboration.slack.com/files/TJF6QTLE4/F019WGZSSD7?origin_team=TJF6QTLE4).
-
-This package works to streamline the process on the R side by making
-access to xMart4 as simple as possible. If the client configuration is
-properly done, then this package allows you full access to xMart4 by
-only editing your `.Renviron` file once. Add your `remoteClientID` and
-`remoteClientSecret` from WHO AzureAD to that by running
-`usethis::edit_r_environ()` and adding these two lines (replacing hashes
-with actual client ID and secret values):
-
-Save the file and restart your R session. You will now be able to access
-all xMart4 marts your client app has been granted permission to access
-by mart admins. Unless your client changes, you should not have to run
-this setup ever again and tokens will be managed in the background for
-you by the `xmart4` package.
-
-## Underlying functionality
-
-So how does this work in practice? The first time you call the
-`xmart4_api()` in a session (either directly or by using any function to
-access marts or tables), if a token is not manually provided, a token
-will be automatically generated. `get_xmart_token()` will be run to get
-an access token for either the xMart4 UAT or PROD server, depending on
-the API call. This will then be stored in the package environment,
-`xmart4:::.xmart_env`.
-
-Every subsequent time an API call is made, that environment is searched
-for the correct token (UAT or PROD), and if the token doesn’t exist or
-has expired, a new token will be generated. All of this should never
-require you to directly request a token or manage token access. Separate
-tokens are managed for both UAT and PROD servers simultaneously.
-
-Once setup, in every session, you can just directly start requesting
-access to marts and tables with `xmart4` functions, without having to
-specify the token
-
-## Directly managing token access
-
-The only instance where you might want to personally manage token access
-would be if you’re attempting to access the xMart4 API through multiple
-clients. You could still let your primary client defined in your
-`.Renviron` run automatically, by calling the xMart4 API without
-specifying the token.
-
-For additional clients not setup this way, you can just directly request
-your tokens. For instance, to set up and use a new access token for the
-UAT server:
-
-You can check the time left on your token using
-`xmart_token_time(token_uat_2)` (they come with 60 minutes of validity
-once generated). Hopefully you don’t need to manually manage your
-tokens, but these wrappers should still make the process as painless as
-possible as xmart4 streamlines the POST requests and expiry checks.
+If this is successful, you can now start exploring any marts that your
+WHO WIMS account has access to. Please note you need to work with the
+specific mart managers to get your WHO WIMS account access before this
+setup will work.
 
 ## Getting data
 
-Once you have sorted out the client tokens, you can start using the
-simple functions available in the package to access xMart4 marts and
-tables.
+Once you have sorted out access to the xMart4 database using one of the
+two methods above, you can start using the simple functions available in
+the package to access xMart4 marts and tables.
 
 -   `xmart4_mart()` provides a character vector of all available tables
     and views in a specified mart.
@@ -159,12 +101,17 @@ Using both should just require you to specify mart name, server (UAT or
 PROD), and table name (if applicable). It’s as easy as opening an R
 session and going:
 
+    library(xmart4)
+
+    head(xmart4_mart("GPW13"))
+    #> Loading cached token
     #> [1] "CONVERT"                   "CONVERT_T"                
     #> [3] "FACT_BILLION_HE_EVENT"     "FACT_BILLION_HE_INDICATOR"
     #> [5] "FACT_BILLION_HP_COUNTRY"   "FACT_BILLION_HP_INDICATOR"
 
 Let’s access the CONVERT table.
 
+    xmart4_table(mart = "GPW13", table = "CONVERT", xmart_server = "UAT")
     #> 
     #> ── Column specification ────────────────────────────────────────────────────────
     #> cols(
@@ -187,12 +134,18 @@ Let’s access the CONVERT table.
     #> 11 A     28.6   
     #> 12 C      0.667
 
-And I can request the top n rows of a table and even supply OData
+And I can request the top *n* rows of a table and even supply OData
 filters with my request. This is especially useful in instances where
 tables or views have many rows and requests may take a long time, so you
 can explore the table on a small subset and find useful OData queries to
 reduce the size of the data requested.
 
+    xmart4_table(mart = "GPW13",
+                 table = "CONVERT",
+                 top = 2,
+                 query = "$filter=Input eq 'A'",
+                 xmart_server = "PROD")
+    #> Loading cached token
     #> 
     #> ── Column specification ────────────────────────────────────────────────────────
     #> cols(

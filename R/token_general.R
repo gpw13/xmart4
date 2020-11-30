@@ -11,10 +11,6 @@
 #' vignettes:
 #' * \href{../doc/token_setup.html}{\code{vignette("token_setup", package = "xmart4")}}
 #'
-#' @param auth_type Type of authorization to use for the token authorization. For
-#'     "wims", the default, this uses the WHO WIMS system to authenticate, with
-#'     the AzureAuth package on the backend. If "client", it uses an AzureAD client
-#'     setup.
 #' @param client_id Azure client ID. Only required if `auth_type == 'client'`.
 #' @param client_secret Azure client secret. Only required if `auth_type == 'client'`.
 #' @inheritParams xmart4_api
@@ -26,11 +22,12 @@
 xmart4_token <- function(auth_type = c("wims", "client"),
                          client_id = NULL,
                          client_secret = NULL,
-                         xmart_server = "UAT") {
+                         xmart_server = c("UAT", "PROD")) {
   xmart_id <- get_xmart_id(xmart_server)
   auth_type <- rlang::arg_match(auth_type)
   if (auth_type == "wims") {
-    xmart4_token_wims(xmart_id)
+    xmart4_token_wims(xmart_id,
+                      xmart_server)
   } else {
     xmart4_token_client(xmart_id,
                         client_id,

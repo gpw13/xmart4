@@ -17,17 +17,19 @@ xmart4_api <- function(mart,
                        xmart_server = c("UAT", "PROD"),
                        top = NULL,
                        query = NULL,
+                       auth_type = c("wims", "client"),
                        token = NULL) {
   assert_mart(mart)
   assert_table(mart, table)
   xmart_server <- rlang::arg_match(xmart_server)
   assert_query(query)
   assert_top(top)
+  auth_type <- rlang::arg_match(auth_type)
 
   query <- modify_query(query)
   t_q <- join_top_query(top, query)
 
-  token <- check_raw_token(token, xmart_server)
+  token <- check_raw_token(token, auth_type, xmart_server)
   url <- xmart_url(mart,
                    table,
                    xmart_server)

@@ -22,7 +22,8 @@ Imports:
     dplyr,
     memoise,
     purrr,
-    readr
+    readr,
+    AzureAuth
 Suggests: 
     knitr,
     rmarkdown

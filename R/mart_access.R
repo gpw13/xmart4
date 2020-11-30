@@ -9,10 +9,11 @@
 #' @export
 xmart4_mart <- function(mart,
                         xmart_server = c("UAT", "PROD"),
+                        auth_type = c("wims", "client"),
                         token = NULL) {
   df <- xmart4_api(mart = mart,
-                       xmart_server = xmart_server,
-                       token = token)
+                   xmart_server = xmart_server,
+                   token = token)
   df[['url']]
 }
 
@@ -36,14 +37,15 @@ xmart4_table <- function(mart,
                          col_types = NULL,
                          xmart_server = c("UAT", "PROD"),
                          return_cols = c("data", "all", "sysdata"),
+                         auth_type = c("wims", "client"),
                          token = NULL) {
   return_cols <- rlang::arg_match(return_cols)
   df <- xmart4_api(mart = mart,
-                       table = table,
-                       top = top,
-                       query = query,
-                       xmart_server = xmart_server,
-                       token = token)
+                   table = table,
+                   top = top,
+                   query = query,
+                   xmart_server = xmart_server,
+                   token = token)
   df <- process_table(df, return_cols)
   readr::type_convert(df, col_types = col_types)
 }

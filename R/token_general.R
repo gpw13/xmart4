@@ -38,50 +38,6 @@ xmart4_token <- function(auth_type = c("wims", "client"),
   }
 }
 
-xmart4_token_client <- function(xmart_id,
-                                client_id = NULL,
-                                client_secret = NULL) {
-  client_id <- assert_client_id(client_id)
-  client_secret <- assert_client_secret(client_secret)
-
-  resp <- httr::POST(url = "https://login.microsoftonline.com/f610c0b7-bd24-4b39-810b-3dc280afb590/oauth2/token",
-                     body = list(
-                       grant_type = "client_credentials",
-                       client_id = client_id,
-                       client_secret = client_secret,
-                       resource = xmart_id
-                     ))
-  resp <- httr::content(resp)
-
-  token <- resp_to_token(resp)
-  token
-}
-
-xmart4_token_wims <- function(xmart_id) {
-  pw <- get_wims_password(xmart_id)
-  resp <- AzureAuth::get_azure_token(resource = xmart_id,
-                                     tenant = "f610c0b7-bd24-4b39-810b-3dc280afb590",
-                                     app = xmart_id,
-                                     auth_type = "authorization_code",
-                                     password = pw,
-                                     use_cache = TRUE)
-
-  token <- resp_to_token(resp[["credentials"]])
-  token
-}
-
-#' @noRd
-get_wims_password <- function(xmart_id) {
-  if (xmart_id == "712b0d0d-f9c5-4b7a-80d6-8a83ee014bca") {
-    "qQKa]APZ_0q.OwO.Oq1H3ndnFNsa16u7"
-  } else if (xmart_id == "b85362d6-c259-490b-bd51-c0a730011bef") {
-    "utNZAZb8823NaRexQl[VPU=gK[YD/H1E"
-  } else {
-    stop("Invalid `xmart_id` supplied to `get_wims_password()`.",
-         call. = FALSE)
-  }
-}
-
 #' Get time left on xMart API token
 #'
 #' xMart API tokens are short-term tokens that last for 60 minutes after generation.
@@ -100,7 +56,7 @@ xmart4_token_time <- function(token) {
 }
 
 #' @noRd
-check_raw_token <- function(token, xmart_server) {
+check_raw_token <- function(token, auth_type, xmart_server) {
   if (!is.null(token)) {
     if (is.character(token)) {
       token
@@ -112,7 +68,7 @@ check_raw_token <- function(token, xmart_server) {
       token[["xmart_token"]]
     }
   } else {
-    refresh_xmart_token(xmart_server)
+    refresh_xmart_token(auth_type, xmart_server)
     retrieve_xmart_token(xmart_server)
   }
 }

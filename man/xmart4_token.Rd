@@ -8,14 +8,14 @@ xmart4_token(
   auth_type = c("wims", "client"),
   client_id = NULL,
   client_secret = NULL,
-  xmart_server = "UAT"
+  xmart_server = c("UAT", "PROD")
 )
 
 xmart4_token(
   auth_type = c("wims", "client"),
   client_id = NULL,
   client_secret = NULL,
-  xmart_server = "UAT"
+  xmart_server = c("UAT", "PROD")
 )
 }
 \arguments{

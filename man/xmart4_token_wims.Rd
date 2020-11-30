@@ -4,10 +4,12 @@
 \alias{xmart4_token_wims}
 \title{Request xMart4 access token}
 \usage{
-xmart4_token_wims(xmart_id)
+xmart4_token_wims(xmart_id, xmart_server)
 }
 \arguments{
 \item{xmart_id}{Resource and app ID for authentication.}
+
+\item{xmart_server}{Either 'UAT' (the default) or 'PROD'}
 }
 \description{
 Request xMart4 access token

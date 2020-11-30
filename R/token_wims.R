@@ -1,4 +1,4 @@
-#' @inherit xmart4_token title
+#' @inherit xmart4_token title params
 #' @param xmart_id Resource and app ID for authentication.
 xmart4_token_wims <- function(xmart_id,
                               xmart_server) {

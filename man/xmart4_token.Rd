@@ -6,6 +6,7 @@
 \usage{
 xmart4_token(
   auth_type = c("wims", "client"),
+  use_cache = TRUE,
   client_id = NULL,
   client_secret = NULL,
   xmart_server = c("UAT", "PROD")
@@ -13,6 +14,7 @@ xmart4_token(
 
 xmart4_token(
   auth_type = c("wims", "client"),
+  use_cache = TRUE,
   client_id = NULL,
   client_secret = NULL,
   xmart_server = c("UAT", "PROD")
@@ -23,6 +25,8 @@ xmart4_token(
 "wims", the default, this uses the WHO WIMS system to authenticate, with
 the AzureAuth package on the backend. If "client", it uses an AzureAD client
 setup.}
+
+\item{use_cache}{Use Azure cache if TRUE (default), otherwise bypass cache.}
 
 \item{client_id}{Azure client ID. Only required if \code{auth_type == 'client'}.}
 

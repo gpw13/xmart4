@@ -4,12 +4,14 @@
 \alias{xmart4_token_wims}
 \title{Request xMart4 access token}
 \usage{
-xmart4_token_wims(xmart_id, xmart_server)
+xmart4_token_wims(xmart_id, xmart_server, use_cache = TRUE)
 }
 \arguments{
 \item{xmart_id}{Resource and app ID for authentication.}
 
 \item{xmart_server}{Either 'UAT' (the default) or 'PROD'}
+
+\item{use_cache}{Use Azure cache if TRUE (default), otherwise bypass cache.}
 }
 \description{
 Request xMart4 access token

@@ -1,14 +1,15 @@
 #' @inherit xmart4_token title params
 #' @param xmart_id Resource and app ID for authentication.
 xmart4_token_wims <- function(xmart_id,
-                              xmart_server) {
+                              xmart_server,
+                              use_cache = TRUE) {
   pw <- get_wims_password(xmart_server)
   resp <- AzureAuth::get_azure_token(resource = xmart_id,
                                      tenant = "f610c0b7-bd24-4b39-810b-3dc280afb590",
                                      app = xmart_id,
                                      auth_type = "authorization_code",
                                      password = pw,
-                                     use_cache = TRUE)
+                                     use_cache = use_cache)
 
   token <- resp_to_token(resp[["credentials"]])
   token

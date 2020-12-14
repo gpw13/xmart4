@@ -23,7 +23,8 @@ Imports:
     memoise,
     purrr,
     readr,
-    AzureAuth
+    AzureAuth,
+    stringr
 Suggests: 
     knitr,
     rmarkdown

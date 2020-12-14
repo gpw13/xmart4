@@ -10,6 +10,7 @@ xmart4_api(
   xmart_server = c("UAT", "PROD"),
   top = NULL,
   query = NULL,
+  full_table = TRUE,
   auth_type = c("wims", "client"),
   token = NULL
 )
@@ -24,6 +25,11 @@ xmart4_api(
 \item{top}{Number of rows of a table to return}
 
 \item{query}{A single string fitting the \href{https://www.odata.org/documentation/odata-version-2-0/uri-conventions/}{Odata protocol} that must start with \code{"$filter="}.}
+
+\item{full_table}{Logical, whether or not to load all the rows in a specified table,
+defaults to \code{TRUE}. The xMart4 API limits calls to 10,000 rows at a time, so
+if \code{full_table == TRUE}, the function automatically repeats the API call to
+extract all rows within the xMart4 table.}
 
 \item{auth_type}{Type of authorization to use for the token authorization. For
 "wims", the default, this uses the WHO WIMS system to authenticate, with

@@ -13,6 +13,10 @@
 #'     "wims", the default, this uses the WHO WIMS system to authenticate, with
 #'     the AzureAuth package on the backend. If "client", it uses an AzureAD client
 #'     setup.
+#' @param full_table Logical, whether or not to load all the rows in a specified table,
+#'     defaults to `TRUE`. The xMart4 API limits calls to 10,000 rows at a time, so
+#'     if `full_table == TRUE`, the function automatically repeats the API call to
+#'     extract all rows within the xMart4 table.
 #' @param token Access token for xMart4 server. If NULL (the default), the package automatically creates and manages access for the user if Azure client ID and secret set up properly. See `vignette("token_setup")` for instructions and details.
 #'
 #' @return A data frame.
@@ -21,6 +25,7 @@ xmart4_api <- function(mart,
                        xmart_server = c("UAT", "PROD"),
                        top = NULL,
                        query = NULL,
+                       full_table = TRUE,
                        auth_type = c("wims", "client"),
                        token = NULL) {
   assert_mart(mart)
@@ -38,17 +43,10 @@ xmart4_api <- function(mart,
                    table,
                    xmart_server)
 
-  resp <- httr::GET(url,
-                    token_header(token),
-                    ua,
-                    query = t_q)
-  assert_status_code(resp)
-  assert_json(resp)
-  parsed <- httr::content(resp,
-                          as = "parsed",
-                          type = "application/json")
-  assert_content(parsed)
-  parsed_to_df(parsed)
+  xmart4_get(url,
+             t_q,
+             token,
+             full_table)
 }
 
 #' @noRd
@@ -87,4 +85,25 @@ join_top_query <- function(top, query) {
   x <- c(query, top)
   x <- x[!is.null(x)]
   paste(x, collapse = "&")
+}
+
+#' @noRd
+xmart4_get <- function(url, t_q, token, full_table) {
+  resp <- httr::GET(httr::modify_url(url),
+                    token_header(token),
+                    ua,
+                    query = t_q)
+  assert_status_code(resp)
+  assert_json(resp)
+  parsed <- httr::content(resp,
+                          as = "parsed",
+                          type = "application/json")
+  assert_content(parsed)
+  df <- parsed_to_df(parsed)
+  next_link <- parsed[["@odata.nextLink"]]
+  if (full_table & !is.null(next_link)) {
+    params <- unlist(stringr::str_match_all(next_link, "(.+?)\\?(\\$.+)"))
+    df <- dplyr::bind_rows(df, xmart4_get(params[2], params[3], token, full_table))
+  }
+  df
 }

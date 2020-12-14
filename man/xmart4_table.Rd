@@ -10,6 +10,7 @@ xmart4_table(
   top = NULL,
   query = NULL,
   col_types = NULL,
+  full_table = TRUE,
   xmart_server = c("UAT", "PROD"),
   return_cols = c("data", "all", "sysdata"),
   auth_type = c("wims", "client"),
@@ -25,7 +26,13 @@ xmart4_table(
 
 \item{query}{A single string fitting the \href{https://www.odata.org/documentation/odata-version-2-0/uri-conventions/}{Odata protocol} that must start with \code{"$filter="}.}
 
-\item{col_types}{One of NULL, a \code{\link[readr:cols]{readr::cols()}} specification, or a string. This is passed to \code{\link[readr:type_convert]{readr::type_convert()}}, so see documentation there for more details.}
+\item{col_types}{One of NULL, a \code{\link[readr:cols]{readr::cols()}} specification, or a string. This
+is passed to \code{\link[readr:type_convert]{readr::type_convert()}}, so see documentation there for more details.}
+
+\item{full_table}{Logical, whether or not to load all the rows in a specified table,
+defaults to \code{TRUE}. The xMart4 API limits calls to 10,000 rows at a time, so
+if \code{full_table == TRUE}, the function automatically repeats the API call to
+extract all rows within the xMart4 table.}
 
 \item{xmart_server}{Either 'UAT' (the default) or 'PROD'}
 

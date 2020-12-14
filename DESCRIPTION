@@ -1,6 +1,6 @@
 Package: xmart4
 Title: R Client for the xMart 4 API
-Version: 0.1
+Version: 0.2
 Authors@R: 
     person(given = "Seth",
            family = "Caldwell",

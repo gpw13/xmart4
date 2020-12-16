@@ -37,7 +37,7 @@ xmart4_api <- function(mart,
 
   query <- modify_query(query)
   t_q <- join_top_query(top, query)
-
+  t_q <- join_tq_skip(t_q, full_table)
   token <- check_raw_token(token, auth_type, xmart_server)
   url <- xmart_url(mart,
                    table,
@@ -85,6 +85,15 @@ join_top_query <- function(top, query) {
   x <- c(query, top)
   x <- x[!is.null(x)]
   paste(x, collapse = "&")
+}
+
+join_tq_skip <- function(tq, full_table) {
+  if (full_table) {
+    x <- c("$skip=0", tq)
+    x <- x[!is.null(x) & x != ""]
+    tq <- paste(x, collapse = "&")
+  }
+  tq
 }
 
 #' @noRd

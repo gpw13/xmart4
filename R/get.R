@@ -102,6 +102,7 @@ xmart4_get <- function(url, t_q, token, full_table) {
                     token_header(token),
                     ua,
                     query = t_q)
+  print(resp$url)
   assert_status_code(resp)
   assert_json(resp)
   parsed <- httr::content(resp,

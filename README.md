@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# xmart4
+# xmart4 <a href='https://github.com/caldwellst/xmart4'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -21,7 +21,9 @@ into R.
 
 You can install xmart4 from [GitHub](https://github.com/) with:
 
-    remotes::install_github("caldwellst/xmart4", build_vignettes = TRUE)
+``` r
+remotes::install_github("caldwellst/xmart4", build_vignettes = TRUE)
+```
 
 ## Connection types
 
@@ -56,9 +58,11 @@ that will cache WIMS authentication and limit the need to login to WIMS
 in your browser every R session. This mimics the behavior on AzureAuth’s
 `onLoad()` function.
 
-    library(xmart4)
-    make_azure_rdir()
-    #> AzureR_dir created at /Users/username/Library/Application Support/AzureR
+``` r
+library(xmart4)
+make_azure_rdir()
+#> AzureR_dir created at /Users/username/Library/Application Support/AzureR
+```
 
 ### Azure password
 
@@ -80,7 +84,9 @@ actual passwords):
 Once saved, restart your R session. You can test that this has
 successfully worked by running:
 
-    xmart4_token(auth_type = "wims")
+``` r
+xmart4_token(auth_type = "wims")
+```
 
 If this is successful, you can now start exploring any marts that your
 WHO WIMS account has access to. Please note you need to work with the
@@ -101,38 +107,42 @@ Using both should just require you to specify mart name, server (UAT or
 PROD), and table name (if applicable). It’s as easy as opening an R
 session and going:
 
-    library(xmart4)
+``` r
+library(xmart4)
 
-    head(xmart4_mart("GPW13"))
-    #> Loading cached token
-    #> [1] "CONVERT"                   "CONVERT_T"                
-    #> [3] "FACT_BILLION_HE_EVENT"     "FACT_BILLION_HE_INDICATOR"
-    #> [5] "FACT_BILLION_HP_COUNTRY"   "FACT_BILLION_HP_INDICATOR"
+head(xmart4_mart("GPW13"))
+#> Loading cached token
+#> [1] "CONVERT"                   "CONVERT_T"                
+#> [3] "FACT_BILLION_HE_EVENT"     "FACT_BILLION_HE_INDICATOR"
+#> [5] "FACT_BILLION_HP_COUNTRY"   "FACT_BILLION_HP_INDICATOR"
+```
 
 Let’s access the CONVERT table.
 
-    xmart4_table(mart = "GPW13", table = "CONVERT", xmart_server = "UAT")
-    #> 
-    #> ── Column specification ────────────────────────────────────────────────────────
-    #> cols(
-    #>   INPUT = col_character(),
-    #>   OUTPUT = col_double()
-    #> )
-    #> # A tibble: 12 x 2
-    #>    INPUT  OUTPUT
-    #>    <chr>   <dbl>
-    #>  1 A     39.0   
-    #>  2 C      0.0689
-    #>  3 D     19.1   
-    #>  4 B      0.568 
-    #>  5 D     91     
-    #>  6 E     12.9   
-    #>  7 D     23.4   
-    #>  8 B      0.0123
-    #>  9 B      0.195 
-    #> 10 E     88.8   
-    #> 11 A     28.6   
-    #> 12 C      0.667
+``` r
+xmart4_table(mart = "GPW13", table = "CONVERT", xmart_server = "UAT")
+#> 
+#> ── Column specification ────────────────────────────────────────────────────────
+#> cols(
+#>   INPUT = col_character(),
+#>   OUTPUT = col_double()
+#> )
+#> # A tibble: 12 x 2
+#>    INPUT  OUTPUT
+#>    <chr>   <dbl>
+#>  1 A     39.0   
+#>  2 C      0.0689
+#>  3 D     19.1   
+#>  4 B      0.568 
+#>  5 D     91     
+#>  6 E     12.9   
+#>  7 D     23.4   
+#>  8 B      0.0123
+#>  9 B      0.195 
+#> 10 E     88.8   
+#> 11 A     28.6   
+#> 12 C      0.667
+```
 
 And I can request the top *n* rows of a table and even supply OData
 filters with my request. This is especially useful in instances where
@@ -140,23 +150,25 @@ tables or views have many rows and requests may take a long time, so you
 can explore the table on a small subset and find useful OData queries to
 reduce the size of the data requested.
 
-    xmart4_table(mart = "GPW13",
-                 table = "CONVERT",
-                 top = 2,
-                 query = "$filter=Input eq 'A'",
-                 xmart_server = "PROD")
-    #> Loading cached token
-    #> 
-    #> ── Column specification ────────────────────────────────────────────────────────
-    #> cols(
-    #>   Input = col_character(),
-    #>   Output = col_double()
-    #> )
-    #> # A tibble: 2 x 2
-    #>   Input Output
-    #>   <chr>  <dbl>
-    #> 1 A       28.6
-    #> 2 A       39.0
+``` r
+xmart4_table(mart = "GPW13",
+             table = "CONVERT",
+             top = 2,
+             query = "$filter=Input eq 'A'",
+             xmart_server = "PROD")
+#> Loading cached token
+#> 
+#> ── Column specification ────────────────────────────────────────────────────────
+#> cols(
+#>   INPUT = col_character(),
+#>   OUTPUT = col_double()
+#> )
+#> # A tibble: 2 x 2
+#>   INPUT OUTPUT
+#>   <chr>  <dbl>
+#> 1 A       28.6
+#> 2 A       39.0
+```
 
 Note above, I seamlessly moved between consuming data from PROD and UAT
 servers.

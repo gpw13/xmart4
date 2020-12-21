@@ -6,6 +6,8 @@
 \alias{xmart4-package}
 \title{xmart4: R Client for the xMart 4 API}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 Provides easy access to the xMart 4 API by managing access tokens to
     UAT and PROD servers automatically, with limited setup required by the user. Currently
     allows systematic access to tables within xMart marts, but additional functionality

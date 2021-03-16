@@ -9,6 +9,7 @@ xmart4_table(
   table,
   top = NULL,
   query = NULL,
+  format = c("none", "csv", "streaming"),
   col_types = NULL,
   full_table = TRUE,
   xmart_server = c("UAT", "PROD"),
@@ -24,15 +25,23 @@ xmart4_table(
 
 \item{top}{Number of rows of a table to return}
 
-\item{query}{A single string fitting the \href{https://www.odata.org/documentation/odata-version-2-0/uri-conventions/}{Odata protocol} that must start with \code{"$filter="}.}
+\item{query}{A single string fitting the \href{https://www.odata.org/documentation/odata-version-2-0/uri-conventions/}{Odata protocol}
+that must start with \code{"$filter="}.}
+
+\item{format}{Specification of the output format to be returned by the xMart API.
+Defaults to \code{"none"}, but consider switching to \code{"csv"} if you are having
+loading an extremely large table. See the
+\href{https://portal-uat.who.int/xmart4/docs/xmart_api/use_API.html}{xMart4 API documentation}
+for details on the three options.}
 
 \item{col_types}{One of NULL, a \code{\link[readr:cols]{readr::cols()}} specification, or a string. This
 is passed to \code{\link[readr:type_convert]{readr::type_convert()}}, so see documentation there for more details.}
 
 \item{full_table}{Logical, whether or not to load all the rows in a specified table,
-defaults to \code{TRUE}. The xMart4 API limits calls to 10,000 rows at a time, so
+defaults to \code{TRUE}. If no format is provided, the xMart4 API limits calls to 100,000 rows at a time, so
 if \code{full_table == TRUE}, the function automatically repeats the API call to
-extract all rows within the xMart4 table.}
+extract all rows within the xMart4 table. Ignored if \code{format="streaming"} or
+\code{format="csv"}.}
 
 \item{xmart_server}{Either 'UAT' (the default) or 'PROD'}
 

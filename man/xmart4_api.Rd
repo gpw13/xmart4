@@ -10,6 +10,7 @@ xmart4_api(
   xmart_server = c("UAT", "PROD"),
   top = NULL,
   query = NULL,
+  format = c("none", "csv", "streaming"),
   full_table = TRUE,
   auth_type = c("wims", "client"),
   token = NULL
@@ -24,12 +25,20 @@ xmart4_api(
 
 \item{top}{Number of rows of a table to return}
 
-\item{query}{A single string fitting the \href{https://www.odata.org/documentation/odata-version-2-0/uri-conventions/}{Odata protocol} that must start with \code{"$filter="}.}
+\item{query}{A single string fitting the \href{https://www.odata.org/documentation/odata-version-2-0/uri-conventions/}{Odata protocol}
+that must start with \code{"$filter="}.}
+
+\item{format}{Specification of the output format to be returned by the xMart API.
+Defaults to \code{"none"}, but consider switching to \code{"csv"} if you are having
+loading an extremely large table. See the
+\href{https://portal-uat.who.int/xmart4/docs/xmart_api/use_API.html}{xMart4 API documentation}
+for details on the three options.}
 
 \item{full_table}{Logical, whether or not to load all the rows in a specified table,
-defaults to \code{TRUE}. The xMart4 API limits calls to 10,000 rows at a time, so
+defaults to \code{TRUE}. If no format is provided, the xMart4 API limits calls to 100,000 rows at a time, so
 if \code{full_table == TRUE}, the function automatically repeats the API call to
-extract all rows within the xMart4 table.}
+extract all rows within the xMart4 table. Ignored if \code{format="streaming"} or
+\code{format="csv"}.}
 
 \item{auth_type}{Type of authorization to use for the token authorization. For
 "wims", the default, this uses the WHO WIMS system to authenticate, with

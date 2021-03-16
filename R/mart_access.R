@@ -13,6 +13,7 @@ xmart4_mart <- function(mart,
                         token = NULL) {
   df <- xmart4_api(mart = mart,
                    xmart_server = xmart_server,
+                   format = "none",
                    auth_type = auth_type,
                    token = token)
   df[['url']]
@@ -36,6 +37,7 @@ xmart4_table <- function(mart,
                          table,
                          top = NULL,
                          query = NULL,
+                         format = c("none", "csv", "streaming"),
                          col_types = NULL,
                          full_table = TRUE,
                          xmart_server = c("UAT", "PROD"),
@@ -43,10 +45,12 @@ xmart4_table <- function(mart,
                          auth_type = c("wims", "client"),
                          token = NULL) {
   return_cols <- rlang::arg_match(return_cols)
+
   df <- xmart4_api(mart = mart,
                    table = table,
                    top = top,
                    query = query,
+                   format = format,
                    xmart_server = xmart_server,
                    auth_type = auth_type,
                    token = token)

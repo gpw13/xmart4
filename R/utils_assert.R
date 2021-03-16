@@ -11,11 +11,18 @@ assert_query <- function(qry) {
 }
 
 #' @noRd
-assert_json <- function(resp) {
+assert_resp <- function(resp, format) {
   type <- httr::http_type(resp)
-  if (type != "application/json") {
-    stop("xMart API did not return json.",
-         call. = FALSE)
+  if (format %in% c("streaming", "none")) {
+    if (type != "application/json") {
+      stop("xMart API did not return json.",
+           call. = FALSE)
+    }
+  } else {
+    if (type != "text/plain") {
+      stop("xMart API did not return CSV.",
+           call. = FALSE)
+    }
   }
 }
 

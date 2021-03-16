@@ -5,8 +5,6 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.com/caldwellst/xmart4.svg?branch=master)](https://travis-ci.com/caldwellst/xmart4)
 [![R build
 status](https://github.com/caldwellst/xmart4/workflows/R-CMD-check/badge.svg)](https://github.com/caldwellst/xmart4/actions)
 <!-- badges: end -->
@@ -130,18 +128,18 @@ xmart4_table(mart = "GPW13", table = "CONVERT", xmart_server = "UAT")
 #> # A tibble: 12 x 2
 #>    INPUT  OUTPUT
 #>    <chr>   <dbl>
-#>  1 A     39.0   
-#>  2 C      0.0689
+#>  1 C      0.0689
+#>  2 B      0.195 
 #>  3 D     19.1   
-#>  4 B      0.568 
-#>  5 D     91     
-#>  6 E     12.9   
-#>  7 D     23.4   
-#>  8 B      0.0123
-#>  9 B      0.195 
-#> 10 E     88.8   
-#> 11 A     28.6   
-#> 12 C      0.667
+#>  4 A     28.6   
+#>  5 E     88.8   
+#>  6 D     91     
+#>  7 C      0.667 
+#>  8 B      0.568 
+#>  9 A     39.0   
+#> 10 B      0.0123
+#> 11 D     23.4   
+#> 12 E     12.9
 ```
 
 And I can request the top *n* rows of a table and even supply OData

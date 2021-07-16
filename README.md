@@ -1,12 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# xmart4 <a href='https://github.com/caldwellst/xmart4'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# xmart4 <a href='https://github.com/gpw13/xmart4'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/caldwellst/xmart4/workflows/R-CMD-check/badge.svg)](https://github.com/caldwellst/xmart4/actions)
+status](https://github.com/gpw13/xmart4/workflows/R-CMD-check/badge.svg)](https://github.com/gpw13/xmart4/actions)
 <!-- badges: end -->
 
 The goal of xmart4 is to provide easy access to the World Health
@@ -17,10 +17,11 @@ into R.
 
 ## Installation
 
-You can install xmart4 from [GitHub](https://github.com/) with:
+You can install xmart4 from [GitHub](https://github.com/gpw13/xmart4)
+with:
 
 ``` r
-remotes::install_github("caldwellst/xmart4", build_vignettes = TRUE)
+remotes::install_github("gpw13/xmart4", build_vignettes = TRUE)
 ```
 
 ## Connection types
@@ -195,6 +196,6 @@ package](https://github.com/r-lib/memoise) for more details.
 ## Contributions
 
 Additional feature requests should be made through the [GitHub issues
-page](https://github.com/caldwellst/xmart4/issues). Any contributions
+page](https://github.com/xmart4/xmart4/issues). Any contributions
 appreciated and encouraged, but please create an open issue first for
 discussion before proceeding with a pull request.

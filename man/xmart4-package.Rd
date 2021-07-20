@@ -16,8 +16,8 @@ Provides easy access to the xMart 4 API by managing access tokens to
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/caldwellst/xmart4}
-  \item Report bugs at \url{https://github.com/caldwellst/xmart4/issues}
+  \item \url{https://github.com/gpw13/xmart4}
+  \item Report bugs at \url{https://github.com/gpw13/xmart4/issues}
 }
 
 }

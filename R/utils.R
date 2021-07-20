@@ -5,8 +5,8 @@
 #' @return character vector
 #' @export
 xmart_cols <- function() {
-  c("iso3", "year","ind", "upload_date", "value", "lower", "upper", "use_dash",
-    "use_calc", "source", "type", "type_detail", "other_detail", "upload_detail")
+  c("iso3", "year","ind", "value", "lower", "upper", "use_dash", "use_calc",
+    "source", "type", "type_detail", "other_detail", "upload_detail")
 }
 
 

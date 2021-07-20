@@ -14,7 +14,7 @@ xmart_cols <- function() {
 #'
 #' Tests to see if the given data frame has all the columns required by xMart4.
 #' The test does not take column order into consideration
-#' (i.e., a,b,c and c,a,b will post them)
+#' (i.e., a,b,c and c,a,b will both pass)
 #'
 #' @param df data.frame
 #'

@@ -1,6 +1,3 @@
-# xmart 0.2.3
-* Added `xmart_cols` and `has_xmart_cols` functions as a reference for expected column specifications when wrangling data.
-
 # xmart4 0.2.2
 
 * Implement format argument to allow for streaming or CSV output formats direct from the xMart4 API, which do not have row limits. This should be used if loading an extremely large table that is encountering performance issues on the standard load. Details on the [API available here in the xMart4 documentation](https://portal-uat.who.int/xmart4/docs/xmart_api/use_API.html).

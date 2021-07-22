@@ -21,5 +21,12 @@ xmart_cols <- function() {
 #' @return bool
 #' @export
 has_xmart_cols <- function(df) {
-  identical( sort(names(df)), sort(xmart_cols()) )
+  condition = identical(
+    sort(names(df)),
+    sort(xmart_cols())
+  )
+  if (!condition) {
+    stop("This data frame does not have all the columns required by xMart.")
+  }
 }
+

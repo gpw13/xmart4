@@ -80,7 +80,7 @@ assert_mart <- function(mart) {
 }
 
 #' @noRd
-assert_table <- function(mart, table) {
+assert_table <- function(mart, table, auth_type) {
   if (!is.null(table)) {
     if (!is.character(table) || length(table) > 1) {
       stop(sprintf("`table` must be a single string of length 1, not a %s vector of length %s.",
@@ -88,7 +88,7 @@ assert_table <- function(mart, table) {
                    length(table)),
            call. = FALSE)
     } else {
-      tbls <- xmart4_mart(mart)
+      tbls <- xmart4_mart(mart, auth_type = auth_type)
       if (!(table %in% tbls)) {
         stop(sprintf("`table` %s is not a valid table code in `mart` %s. Use `xmart4_mart('%s')` to access a list of all valid table codes.",
                      table,

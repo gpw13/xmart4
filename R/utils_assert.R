@@ -18,8 +18,8 @@ assert_resp <- function(resp, format) {
       stop("xMart API did not return json.",
            call. = FALSE)
     }
-  } else {
-    if (type != "text/plain") {
+  } else if (format %in% c("csv", "csv_inline")) {
+    if (!type %in% c("text/csv", "text/plain")) {
       stop("xMart API did not return CSV.",
            call. = FALSE)
     }

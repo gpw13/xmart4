@@ -133,7 +133,7 @@ xmart4_get <- function(url, t_q, token, full_table, format) {
 
   if (full_table & !is.null(next_link)) {
     params <- unlist(stringr::str_match_all(next_link, "(.+?)\\?(\\$.+)"))
-    df <- dplyr::bind_rows(df, xmart4_get(params[2], params[3], token, full_table))
+    df <- dplyr::bind_rows(df, xmart4_get(params[2], params[3], token, full_table, format))
   }
   df
 }

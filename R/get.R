@@ -49,21 +49,27 @@ xmart4_api <- function(mart,
   t_q <- join_tq_skip(t_q, full_table)
   t_q <- join_format(t_q, format)
   token <- check_raw_token(token, auth_type, xmart_server)
-  url <- xmart_url(mart,
-                   table,
-                   xmart_server)
+  url <- xmart_url(
+    mart,
+    table,
+    xmart_server
+  )
 
-  xmart4_get(url,
-             t_q,
-             token,
-             full_table,
-             format)
+  xmart4_get(
+    url,
+    t_q,
+    token,
+    full_table,
+    format
+  )
 }
 
 #' @noRd
 server_to_base_url <- function(xmart_server) {
-  urls <- c("https://portal-uat.who.int/xmart-api/odata",
-            "https://extranet.who.int/xmart-api/odata")
+  urls <- c(
+    "https://portal-uat.who.int/xmart-api/odata",
+    "https://extranet.who.int/xmart-api/odata"
+  )
   servers <- c("UAT", "PROD")
   urls[match(xmart_server, servers)]
 }
@@ -74,14 +80,15 @@ xmart_url <- function(mart,
                       xmart_server) {
   base_url <- server_to_base_url(xmart_server)
   httr::modify_url(base_url, path = paste("xmart-api/odata",
-                                          mart,
-                                          table,
-                                          sep = "/"))
+    mart,
+    table,
+    sep = "/"
+  ))
 }
 
 #' @noRd
 modify_query <- function(qry) {
-  if(is.na(qry) || is.null(qry)) {
+  if (is.na(qry) || is.null(qry)) {
     NULL
   } else {
     gsub(" ", "%20", qry)
@@ -121,9 +128,10 @@ join_format <- function(tq, format) {
 #' @noRd
 xmart4_get <- function(url, t_q, token, full_table, format) {
   resp <- httr::GET(httr::modify_url(url),
-                    token_header(token),
-                    ua,
-                    query = t_q)
+    token_header(token),
+    ua,
+    query = t_q
+  )
   assert_status_code(resp)
   assert_resp(resp, format)
 
@@ -142,17 +150,19 @@ xmart4_get <- function(url, t_q, token, full_table, format) {
 xmart4_parse <- function(resp, format) {
   if (format %in% c("streaming", "none")) {
     parsed <- httr::content(resp,
-                            as = "parsed",
-                            type = "application/json",
-                            encoding = "UTF-8")
+      as = "parsed",
+      type = "application/json",
+      encoding = "UTF-8"
+    )
     assert_content(parsed)
     df <- parsed_to_df(parsed)
     next_link <- parsed[["@odata.nextLink"]]
   } else {
     df <- httr::content(resp,
-                        as = "parsed",
-                        type = "text/csv",
-                        encoding = "UTF-8")
+      as = "parsed",
+      type = "text/csv",
+      encoding = "UTF-8"
+    )
     next_link <- NULL
   }
   list(df, next_link)

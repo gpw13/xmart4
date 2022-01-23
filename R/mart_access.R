@@ -11,12 +11,14 @@ xmart4_mart <- function(mart,
                         xmart_server = c("UAT", "PROD"),
                         auth_type = c("wims", "client"),
                         token = NULL) {
-  df <- xmart4_api(mart = mart,
-                   xmart_server = xmart_server,
-                   format = "none",
-                   auth_type = auth_type,
-                   token = token)
-  df[['url']]
+  df <- xmart4_api(
+    mart = mart,
+    xmart_server = xmart_server,
+    format = "none",
+    auth_type = auth_type,
+    token = token
+  )
+  df[["url"]]
 }
 
 #' Get data from xMart table or view
@@ -46,14 +48,16 @@ xmart4_table <- function(mart,
                          token = NULL) {
   return_cols <- rlang::arg_match(return_cols)
 
-  df <- xmart4_api(mart = mart,
-                   table = table,
-                   top = top,
-                   query = query,
-                   format = format,
-                   xmart_server = xmart_server,
-                   auth_type = auth_type,
-                   token = token)
+  df <- xmart4_api(
+    mart = mart,
+    table = table,
+    top = top,
+    query = query,
+    format = format,
+    xmart_server = xmart_server,
+    auth_type = auth_type,
+    token = token
+  )
   df <- process_table(df, return_cols)
   readr::type_convert(df, col_types = col_types)
 }
@@ -69,9 +73,9 @@ process_table <- function(df, return_cols) {
     if (return_cols == "data") {
       idx <- -(i:ncol(df))
     } else {
-      idx <- -(1:(i-1))
+      idx <- -(1:(i - 1))
     }
-    df[,idx]
+    df[, idx]
   }
 }
 

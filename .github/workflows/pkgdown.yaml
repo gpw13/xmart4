@@ -27,7 +27,6 @@ jobs:
         with:
           extra-packages: any::pkgdown, local::.
           needs: any::website
-          dependencies: pkgdepends::as_pkg_dependencies("hard")
 
       - name: Deploy package
         run: |

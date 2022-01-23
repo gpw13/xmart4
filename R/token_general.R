@@ -29,12 +29,16 @@ xmart4_token <- function(auth_type = c("wims", "client"),
   auth_type <- rlang::arg_match(auth_type)
 
   if (auth_type == "wims") {
-    xmart4_token_wims(xmart_id,
-                      xmart_server)
+    xmart4_token_wims(
+      xmart_id,
+      xmart_server
+    )
   } else {
-    xmart4_token_client(xmart_id,
-                        client_id,
-                        client_secret)
+    xmart4_token_client(
+      xmart_id,
+      client_id,
+      client_secret
+    )
   }
 }
 
@@ -82,8 +86,10 @@ retrieve_xmart_token <- function(xmart_server) {
 
 #' @noRd
 resp_to_token <- function(resp) {
-  token <- list(token = resp[["access_token"]],
-                expires = lubridate::as_datetime(as.numeric(resp[["expires_on"]])))
+  token <- list(
+    token = resp[["access_token"]],
+    expires = lubridate::as_datetime(as.numeric(resp[["expires_on"]]))
+  )
   token
 }
 
@@ -92,8 +98,10 @@ refresh_xmart_token <- function(auth_type, xmart_server) {
   nm <- server_to_token_name(xmart_server)
   valid <- check_xmart_env(nm)
   if (!valid) {
-    token <- xmart4_token(auth_type = auth_type,
-                          xmart_server = xmart_server)
+    token <- xmart4_token(
+      auth_type = auth_type,
+      xmart_server = xmart_server
+    )
     assign(nm, token, envir = .xmart_env)
   }
 }
@@ -124,7 +132,8 @@ get_xmart_id <- function(xmart_server) {
     "712b0d0d-f9c5-4b7a-80d6-8a83ee014bca"
   } else {
     stop("`xmart_server` must be either 'UAT' or 'PROD'",
-         call. = FALSE)
+      call. = FALSE
+    )
   }
 }
 

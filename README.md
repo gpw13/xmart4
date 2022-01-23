@@ -5,8 +5,9 @@
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/gpw13/xmart4/workflows/R-CMD-check/badge.svg)](https://github.com/gpw13/xmart4/actions)
+[![R build status](https://github.com/gpw13/xmart4/workflows/R-CMD-check/badge.svg)](https://github.com/gpw13/xmart4/actions)
+[![test-coverage](https://github.com/gpw13/xmart4/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/gpw13/xmart4/actions/workflows/test-coverage.yaml)
+
 <!-- badges: end -->
 
 The goal of xmart4 is to provide easy access to the World Health

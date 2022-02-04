@@ -2,22 +2,25 @@
 #' @inherit xmart4_token_wims params
 xmart4_token_client <- function(xmart_id,
                                 client_id = NULL,
-                                client_secret = NULL) {
+                                client_secret = NULL,
+                                use_cache = TRUE) {
+
+  tenant_id = Sys.getenv("XMART_TENANT_ID")
+  assert_tenant_id(tenant_id)
+
   client_id <- assert_client_id(client_id)
   client_secret <- assert_client_secret(client_secret)
 
-  resp <- httr::POST(
-    url = "https://login.microsoftonline.com/f610c0b7-bd24-4b39-810b-3dc280afb590/oauth2/token",
-    body = list(
-      grant_type = "client_credentials",
-      client_id = client_id,
-      client_secret = client_secret,
-      resource = xmart_id
-    )
+  resp <- AzureAuth::get_azure_token(
+    resource = xmart_id,
+    tenant = tenant_id,
+    app = client_id,
+    password = client_secret,
+    auth_type = "client_credentials",
+    use_cache = use_cache
   )
-  resp <- httr::content(resp)
 
-  token <- resp_to_token(resp)
+  token <- resp_to_token(resp[["credentials"]])
   token
 }
 
@@ -48,5 +51,11 @@ assert_client_secret <- function(x) {
     x
   } else {
     x
+  }
+}
+
+assert_tenant_id <- function(x) {
+  if (identical(x, "") || is.null(x)) {
+    stop("Please set the XMART_TENANT_ID environment variable", call. = FALSE)
   }
 }

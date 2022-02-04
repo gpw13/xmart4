@@ -4,7 +4,12 @@
 \alias{xmart4_token_client}
 \title{Request xMart4 access token}
 \usage{
-xmart4_token_client(xmart_id, client_id = NULL, client_secret = NULL)
+xmart4_token_client(
+  xmart_id,
+  client_id = NULL,
+  client_secret = NULL,
+  use_cache = TRUE
+)
 }
 \arguments{
 \item{xmart_id}{Resource and app ID for authentication.}
@@ -12,9 +17,9 @@ xmart4_token_client(xmart_id, client_id = NULL, client_secret = NULL)
 \item{client_id}{Azure client ID. Only required if \code{auth_type == 'client'}.}
 
 \item{client_secret}{Azure client secret. Only required if \code{auth_type == 'client'}.}
+
+\item{use_cache}{Use Azure cache if TRUE (default), otherwise bypass cache.}
 }
 \description{
-Request xMart4 access token
-
 Request xMart4 access token
 }

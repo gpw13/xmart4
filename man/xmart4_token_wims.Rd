@@ -15,6 +15,4 @@ xmart4_token_wims(xmart_id, xmart_server, use_cache = TRUE)
 }
 \description{
 Request xMart4 access token
-
-Request xMart4 access token
 }

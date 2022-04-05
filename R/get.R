@@ -15,10 +15,9 @@
 #'     loading an extremely large table. See the
 #'     [xMart4 API documentation](https://portal-uat.who.int/xmart4/docs/xmart_api/use_API.html)
 #'     for details on the three options.
-#' @param auth_type Type of authorization to use for the token authorization. For
-#'     "wims", the default, this uses the WHO WIMS system to authenticate, with
-#'     the AzureAuth package on the backend. If "client", it uses an AzureAD client
-#'     setup.
+#' @param auth_type Type of authorization to use for the token authorization.
+#' If "client" (the default), it uses an AzureAD client setup. The old "wims"
+#' method has been discontinued.
 #' @param full_table Logical, whether or not to load all the rows in a specified table,
 #'     defaults to `TRUE`. If no format is provided, the xMart4 API limits calls to 100,000 rows at a time, so
 #'     if `full_table == TRUE`, the function automatically repeats the API call to
@@ -34,7 +33,7 @@ xmart4_api <- function(mart,
                        query = NULL,
                        format = c("none", "csv", "streaming"),
                        full_table = TRUE,
-                       auth_type = c("wims", "client"),
+                       auth_type = "client",
                        token = NULL) {
   assert_mart(mart)
   assert_table(mart, table, auth_type)

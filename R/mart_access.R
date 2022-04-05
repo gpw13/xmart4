@@ -9,7 +9,7 @@
 #' @export
 xmart4_mart <- function(mart,
                         xmart_server = c("UAT", "PROD"),
-                        auth_type = c("wims", "client"),
+                        auth_type = "client",
                         token = NULL) {
   df <- xmart4_api(
     mart = mart,
@@ -44,7 +44,7 @@ xmart4_table <- function(mart,
                          full_table = TRUE,
                          xmart_server = c("UAT", "PROD"),
                          return_cols = c("data", "all", "sysdata"),
-                         auth_type = c("wims", "client"),
+                         auth_type = "client",
                          token = NULL) {
   return_cols <- rlang::arg_match(return_cols)
 

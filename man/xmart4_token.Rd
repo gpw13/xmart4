@@ -5,7 +5,7 @@
 \title{Request xMart4 access token}
 \usage{
 xmart4_token(
-  auth_type = c("wims", "client"),
+  auth_type = "client",
   use_cache = TRUE,
   client_id = NULL,
   client_secret = NULL,
@@ -13,10 +13,9 @@ xmart4_token(
 )
 }
 \arguments{
-\item{auth_type}{Type of authorization to use for the token authorization. For
-"wims", the default, this uses the WHO WIMS system to authenticate, with
-the AzureAuth package on the backend. If "client", it uses an AzureAD client
-setup.}
+\item{auth_type}{Type of authorization to use for the token authorization.
+If "client" (the default), it uses an AzureAD client setup. The old "wims"
+method has been discontinued.}
 
 \item{use_cache}{Use Azure cache if TRUE (default), otherwise bypass cache.}
 

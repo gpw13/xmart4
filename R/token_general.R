@@ -19,7 +19,7 @@
 #'     from time of generation.
 #'
 #' @export
-xmart4_token <- function(auth_type = c("wims", "client"),
+xmart4_token <- function(auth_type = "client",
                          use_cache = TRUE,
                          client_id = NULL,
                          client_secret = NULL,

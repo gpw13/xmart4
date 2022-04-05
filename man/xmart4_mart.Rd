@@ -7,7 +7,7 @@
 xmart4_mart(
   mart,
   xmart_server = c("UAT", "PROD"),
-  auth_type = c("wims", "client"),
+  auth_type = "client",
   token = NULL
 )
 }
@@ -16,10 +16,9 @@ xmart4_mart(
 
 \item{xmart_server}{Either 'UAT' (the default) or 'PROD'}
 
-\item{auth_type}{Type of authorization to use for the token authorization. For
-"wims", the default, this uses the WHO WIMS system to authenticate, with
-the AzureAuth package on the backend. If "client", it uses an AzureAD client
-setup.}
+\item{auth_type}{Type of authorization to use for the token authorization.
+If "client" (the default), it uses an AzureAD client setup. The old "wims"
+method has been discontinued.}
 
 \item{token}{Access token for xMart4 server. If NULL (the default), the package automatically creates and manages access for the user if Azure client ID and secret set up properly. See \code{vignette("token_setup")} for instructions and details.}
 }

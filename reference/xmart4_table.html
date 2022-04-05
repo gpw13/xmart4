@@ -75,7 +75,7 @@ return only data columns (the default), all columns, or only the system columns.
   full_table <span class="op">=</span> <span class="cn">TRUE</span>,
   xmart_server <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"UAT"</span>, <span class="st">"PROD"</span><span class="op">)</span>,
   return_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="st">"all"</span>, <span class="st">"sysdata"</span><span class="op">)</span>,
-  auth_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wims"</span>, <span class="st">"client"</span><span class="op">)</span>,
+  auth_type <span class="op">=</span> <span class="st">"client"</span>,
   token <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
     </div>
@@ -111,10 +111,9 @@ extract all rows within the xMart4 table. Ignored if <code>format="streaming"</c
 <dt>return_cols</dt>
 <dd><p>Return data columns only (default), all columns, or system data columns. Only works on tables, as views have no system columns.</p></dd>
 <dt>auth_type</dt>
-<dd><p>Type of authorization to use for the token authorization. For
-"wims", the default, this uses the WHO WIMS system to authenticate, with
-the AzureAuth package on the backend. If "client", it uses an AzureAD client
-setup.</p></dd>
+<dd><p>Type of authorization to use for the token authorization.
+If "client" (the default), it uses an AzureAD client setup. The old "wims"
+method has been discontinued.</p></dd>
 <dt>token</dt>
 <dd><p>Access token for xMart4 server. If NULL (the default), the package automatically creates and manages access for the user if Azure client ID and secret set up properly. See <code>vignette("token_setup")</code> for instructions and details.</p></dd>
 </dl></div>

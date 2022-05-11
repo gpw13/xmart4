@@ -19,7 +19,13 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Seth Caldwell \email{caldwellst@gmail.com}
+\strong{Maintainer}: Elliott Messeiller \email{elliott.messeiller@gmail.com}
+
+Authors:
+\itemize{
+  \item Seth Caldwell \email{caldwellst@gmail.com}
+  \item Muhammad Jarir Kanji \email{mjkanji@outlook.com}
+}
 
 }
 \keyword{internal}

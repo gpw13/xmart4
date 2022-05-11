@@ -36,23 +36,22 @@ remotes::install_github("gpw13/xmart4", build_vignettes = TRUE)
 ## Connection types
 
 To get setup with the xmart4 package, there are two ways to authenticate your machine
-with the Azure database. For most users, they will want to use their WIMS account
-to allow their personal machine to access xMart databases. The guide for this setup
-can be found below or in the relevant vignette:
-
-* `vignette("azure-wims-setup", package = "xmart4")`
-
-However, for some use cases, particularly dashboards, Shiny applications, or other
-non-interactive R pipelines, we isntead want to setup a separate Azure client to
-connect to the xMart4 database. The instructions for both of these are in the
-following vignettes:
+with the Azure database. Following xMart's team recommendations, the package has
+switched to use the client authentification as a default (it was WIMS access before).
+The guide for this setup can be found below or in the relevant vignette:
 
 * `vignette("azure-client-setup", package = "xmart4")`
+
+However, for some use cases, particularly dashboards, Shiny applications, or other
+non-interactive R pipelines, we instead want to setup a separate Azure client to
+connect to the xMart4 database. The instructions for these are in the
+following vignette:
+
 * `vignette("azure-token-setup", package = "xmart4")`
  
-## Azure WIMS Setup
+## Azure Client Setup
  
-```{r child = "vignettes/azure-wims-setup.Rmd"}
+```{r child = "vignettes/azure-client-setup.Rmd"}
 ```
 
 ## Getting data

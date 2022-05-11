@@ -1,3 +1,8 @@
+# xmart 0.3.0
+
+* WIMS `auth_type` is depricated following recommendations from the xMart team
+* Documentation updated to reflect the removal of the WIMS access.
+
 # xmart4 0.2.2
 
 * Implement format argument to allow for streaming or CSV output formats direct from the xMart4 API, which do not have row limits. This should be used if loading an extremely large table that is encountering performance issues on the standard load. Details on the [API available here in the xMart4 documentation](https://portal-uat.who.int/xmart4/docs/xmart_api/use_API.html).

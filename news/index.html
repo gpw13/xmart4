@@ -54,16 +54,13 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.2" id="xmart4-022">xmart4 0.2.2<a class="anchor" aria-label="anchor" href="#xmart4-022"></a></h2>
-<ul><li>Implement format argument to allow for streaming or CSV output formats direct from the xMart4 API, which do not have row limits. This should be used if loading an extremely large table that is encountering performance issues on the standard load. Details on the <a href="https://portal-uat.who.int/xmart4/docs/xmart_api/use_API.html" class="external-link">API available here in the xMart4 documentation</a>.</li>
-</ul></div>
+<ul><li>Implement format argument to allow for streaming or CSV output formats direct from the xMart4 API, which do not have row limits. This should be used if loading an extremely large table that is encountering performance issues on the standard load. Details on the <a href="https://portal-uat.who.int/xmart4/docs/xmart_api/use_API.html" class="external-link">API available here in the xMart4 documentation</a>.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.1" id="xmart4-021">xmart4 0.2.1<a class="anchor" aria-label="anchor" href="#xmart4-021"></a></h2>
-<ul><li>Fix issue with xMart4 API using different orderings depending on if <code>$skip=</code> is included in the API query, so downloading a full table using OData nextLink duplicated some records and excluded others.</li>
-</ul></div>
+<ul><li>Fix issue with xMart4 API using different orderings depending on if <code>$skip=</code> is included in the API query, so downloading a full table using OData nextLink duplicated some records and excluded others.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2" id="xmart4-02">xmart4 0.2<a class="anchor" aria-label="anchor" href="#xmart4-02"></a></h2>
-<ul><li>The xMart4 API now limits user calls to 100,000 rows per call. This update ensures that the default behavior of the xmart4 package is to continually repeat calls to an xMart4 table until all rows have been downloaded. This is controlled through the <code>full_table</code> argument in the <code><a href="../reference/xmart4_table.html">xmart4_table()</a></code> function.</li>
-</ul></div>
+<ul><li>The xMart4 API now limits user calls to 100,000 rows per call. This update ensures that the default behavior of the xmart4 package is to continually repeat calls to an xMart4 table until all rows have been downloaded. This is controlled through the <code>full_table</code> argument in the <code><a href="../reference/xmart4_table.html">xmart4_table()</a></code> function.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.1" id="xmart4-001">xmart4 0.0.1<a class="anchor" aria-label="anchor" href="#xmart4-001"></a></h2>
 <ul><li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
@@ -72,8 +69,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1" id="xmart4-01">xmart4 0.1<a class="anchor" aria-label="anchor" href="#xmart4-01"></a></h2>
-<ul><li>Implemented WIMS account authentication so there is no need to set up a separate Azure client</li>
-</ul></div>
+<ul><li>Implemented WIMS account authentication so there is no need to set up a separate Azure client</li></ul></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
@@ -83,7 +79,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>

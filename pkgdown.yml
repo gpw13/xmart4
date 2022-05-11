@@ -1,9 +1,9 @@
 pandoc: 2.14.2
-pkgdown: 2.0.2
+pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   azure-client-setup: azure-client-setup.html
   azure-token-setup: azure-token-setup.html
   azure-wims-setup: azure-wims-setup.html
-last_built: 2022-04-05T11:48Z
+last_built: 2022-05-11T12:53Z
 

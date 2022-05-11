@@ -86,10 +86,8 @@ xmart4_table(mart = "GPW13",
              table = "CONVERT",
              top = 2,
              query = "$filter=Input eq 'A'",
-             xmart_server = "PROD")
+             xmart_server = "UAT")
 ```
-
-Note above, I seamlessly moved between consuming data from PROD and UAT servers.
 
 ## Memoisation
 

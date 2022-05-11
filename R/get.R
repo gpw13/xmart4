@@ -36,8 +36,8 @@ xmart4_api <- function(mart,
                        auth_type = "client",
                        token = NULL) {
   assert_mart(mart)
-  assert_table(mart, table, auth_type)
   xmart_server <- rlang::arg_match(xmart_server)
+  assert_table(mart, table, auth_type, xmart_server)
   assert_query(query)
   assert_top(top)
   format <- rlang::arg_match(format)

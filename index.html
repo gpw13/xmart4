@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="index.html">xmart4</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +56,6 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="articles/azure-client-setup.html">xMart4 Azure Client Setup</a>
     <a class="dropdown-item" href="articles/azure-token-setup.html">Token setup in R</a>
-    <a class="dropdown-item" href="articles/azure-wims-setup.html">Azure WIMS Setup</a>
   </div>
 </li>
 <li class="nav-item">
@@ -100,7 +99,7 @@
 <h2 id="connection-types">Connection types<a class="anchor" aria-label="anchor" href="#connection-types"></a>
 </h2>
 <p>To get setup with the xmart4 package, there are two ways to authenticate your machine with the Azure database. For most users, they will want to use their WIMS account to allow their personal machine to access xMart databases. The guide for this setup can be found below or in the relevant vignette:</p>
-<ul><li><code><a href="articles/azure-wims-setup.html">vignette("azure-wims-setup", package = "xmart4")</a></code></li></ul>
+<ul><li><code>vignette("azure-wims-setup", package = "xmart4")</code></li></ul>
 <p>However, for some use cases, particularly dashboards, Shiny applications, or other non-interactive R pipelines, we isntead want to setup a separate Azure client to connect to the xMart4 database. The instructions for both of these are in the following vignettes:</p>
 <ul>
 <li><code><a href="articles/azure-client-setup.html">vignette("azure-client-setup", package = "xmart4")</a></code></li>
@@ -236,7 +235,9 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Seth Caldwell <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Seth Caldwell <br><small class="roles"> Author </small>  </li>
+<li>Elliott Messeiller <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Muhammad Jarir Kanji <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
 
@@ -254,7 +255,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Seth Caldwell.</p>
+<p>Developed by Seth Caldwell, Elliott Messeiller, Muhammad Jarir Kanji.</p>
 </div>
 
 <div class="pkgdown-footer-right">
